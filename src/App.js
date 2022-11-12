@@ -18,6 +18,7 @@ const App = () => {
   // useState([]) 는 data가 비어있을 때 저걸 초기에 넣어줌
 
   const [data, setData] = useState([]);
+  const [detail, setDetail] = useState([]);
 
   // 그려질 때 쓸게
   useEffect(() => {
@@ -38,6 +39,7 @@ const App = () => {
         limit: 5,
         sort_by: 'year',
         order_by: 'desc',
+        query_term: 'mother'
       }
     });
 
@@ -64,6 +66,8 @@ const App = () => {
       <Search />
       {/* props로 가져오려면 각각을 선언 */}
       <Main data={ data} clickEvent={ clickEvent } />
+      {/* 상태 바뀔때 클래스 추가 문법 */}
+      <div id="modal" className={!setDetail ? '' : 'show'}></div>
     </div>
   );
 }
