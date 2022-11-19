@@ -19,32 +19,32 @@ const Main = ({ data, clickEvent }) => {
             data.map((v, i) => {
               return (
                 // props 실제 사용
-              <li className='card' key={ i } onClick={ clickEvent } data-id={ v.id }>
-                <div className='card-detail-wrap'>
-                <div className='card-img-wrap'>
-                  <img src={ v.large_cover_image } alt='poster' className='card-img' />
-                  <h2 className='title'>{ v.title }</h2>
-                </div>
-                <div className='card-text-wrap'>
-                  <dl className='card-info-list-wrap'>
-                    <dt className='card-info-ttl'>등록일</dt>
-                    <dd className='card-info-dec'>{ v.date_uploaded }</dd>
-                  </dl>
-                  <dl className='card-info-list-wrap'>
-                    <dt className='card-info-ttl'>장르</dt>
-                    <dd className='card-info-dec'>{ v.genres[0] } { v.genres[1] }</dd>
-                  </dl>
-                  <dl className='card-info-list-wrap'>
-                    <dt className='card-info-ttl'>시간</dt>
-                    <dd className='card-info-dec'>{ v.runtime }분</dd>
-                  </dl>
-                  <dl className='card-info-list-wrap'>
-                    <dt className='card-info-ttl'>평점</dt>
-                    <dd className='card-info-dec'>{ v.rating }점</dd>
-                  </dl>
-                </div>
-                </div>
-              </li>
+                <li className='card' key={i} onClick={clickEvent} data-id={ v.id }>
+                  <div className={!detail ? 'card-detail-wrap' : 'card-detail-wrap show'}>
+                    <div className='card-img-wrap'>
+                      <img src={v.large_cover_image} alt='poster' className='card-img' />
+                      <h2 className='title'>{v.title}</h2>
+                    </div>
+                    <div className='card-text-wrap'>
+                      <dl className='card-info-list-wrap'>
+                        <dt className='card-info-ttl'>등록일 :&nbsp;</dt>
+                        <dd className='card-info-dec'>{v.date_uploaded}</dd>
+                      </dl>
+                      <dl className='card-info-list-wrap'>
+                        <dt className='card-info-ttl'>장르 :&nbsp;</dt>
+                        <dd className='card-info-dec'>{v.genres[0]} {v.genres[1]}</dd>
+                      </dl>
+                      <dl className='card-info-list-wrap'>
+                        <dt className='card-info-ttl'>시간 :&nbsp;</dt>
+                        <dd className='card-info-dec'>{v.runtime}분</dd>
+                      </dl>
+                      <dl className='card-info-list-wrap'>
+                        <dt className='card-info-ttl'>평점 :&nbsp;</dt>
+                        <dd className='card-info-dec'>{v.rating}점</dd>
+                      </dl>
+                    </div>
+                  </div>
+                </li>
               )
             })
           }

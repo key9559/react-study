@@ -44,29 +44,28 @@ const App = () => {
     });
 
     setData(res.data.data.movies);
+
   }
 
   // props로 가져와야함
   const clickEvent = (e) => {
     const { target } = e;
-    // let parent = target.target;
-    
-    // if (target.target.tagName.toLowerCase() !== 'li') {
-    //   parent = target.target.closest('li');
-    // }
     const parent = target.tagName.toLowerCase() === 'li' ? target : target.closest('li');
 
     console.log(parent.dataset.id);
 
-    if(parent.previousSibling) {
-      parent.previousSibling.classList.remove('active');
+    const getDetailList = async () => {
+      const res = await axios.get('/api/v2/list_movies.json', {
+        params: {
+          limit: 5,
+          sort_by: 'year',
+          order_by: 'desc',
+          query_term: 'mother'
+        }
+      });
+  
+      setDetail(res.data.detail.movies);
     }
-    
-    if(parent.nextSibling) {
-      parent.nextSibling.classList.remove('active');
-    }
-
-    parent.classList.add('active');
   }
 
   return (
@@ -75,9 +74,9 @@ const App = () => {
       {/* props는 부모가 자식한테로만 ㄱㄴ */}
       <Search />
       {/* props로 가져오려면 각각을 선언 */}
-      <Main data={ data } clickEvent={ clickEvent } />
+      <Main data={ data } clickEvent={ clickEvent } detail={ detail } />
       {/* 상태 바뀔때 클래스 추가 문법 */}
-      <div id="modal" className={!setDetail ? '' : 'show'}></div>
+      {/* <div id="modal" className={!setDetail ? '' : 'show'}></div> */}
     </div>
   );
 }
