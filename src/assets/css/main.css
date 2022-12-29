@@ -44,11 +44,11 @@
   color: #fff;
 }
 
-.card-detail-wrap.show .card-text-wrap {
+.show .modal-wrapper {
   display: flex;
 }
 
-.card-text-wrap {
+.modal-wrapper {
   z-index: 5;
   position: absolute;
   top: 0;

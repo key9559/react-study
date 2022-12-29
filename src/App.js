@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from './page/components/Header';
 import Main from './page/components/Main';
 import Search from './page/components/Search';
+import Modal from './page/components/Modal';
 
 // 데이터 불러오기
 import axios from 'axios';
@@ -19,6 +20,7 @@ const App = () => {
 
   const [data, setData] = useState([]);
   const [detail, setDetail] = useState([]);
+  const [openEvent, setOpenEvent] = useState(false);
 
   // 그려질 때 쓸게
   useEffect(() => {
@@ -47,36 +49,33 @@ const App = () => {
 
   }
 
+  console.log(openEvent);
   // props로 가져와야함
   const clickEvent = (e) => {
     const { target } = e;
     const parent = target.tagName.toLowerCase() === 'li' ? target : target.closest('li');
-
+    
     console.log(parent.dataset.id);
-
+    
     const getDetailList = async () => {
-      const res = await axios.get('/api/v2/list_movies.json', {
-        params: {
-          limit: 5,
-          sort_by: 'year',
-          order_by: 'desc',
-          query_term: 'mother'
-        }
-      });
-  
+      const res = await axios.get('/api/v2/list_movies.json', {});
+      
       setDetail(res.data.detail.movies);
     }
+    
+    openEvent = true;
+    console.log(openEvent);
   }
-
+  
   return (
     <div className='app'>
       <Header />
       {/* props는 부모가 자식한테로만 ㄱㄴ */}
       <Search />
       {/* props로 가져오려면 각각을 선언 */}
-      <Main data={ data } clickEvent={ clickEvent } detail={ detail } />
+      <Main data={ data } clickEvent={ clickEvent } />
       {/* 상태 바뀔때 클래스 추가 문법 */}
-      {/* <div id="modal" className={!setDetail ? '' : 'show'}></div> */}
+      <Modal detail={ detail } className={openEvent ? '' : 'show'}/>
     </div>
   );
 }
