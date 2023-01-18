@@ -11,6 +11,7 @@ import './assets/css/reset.css'
 import './assets/css/header.css'
 import './assets/css/main.css'
 import './assets/css/search.css'
+import './assets/css/modal.css'
 
 // useEffect(); // 변화가 생길거다 ex| 이벤트 발생(클릭, 리스트 변경 등)
 // useState(); // 상태를 관리할거다 ex| 좋아요 등
@@ -54,28 +55,32 @@ const App = () => {
   const clickEvent = (e) => {
     const { target } = e;
     const parent = target.tagName.toLowerCase() === 'li' ? target : target.closest('li');
-    
+
     console.log(parent.dataset.id);
-    
+
     const getDetailList = async () => {
       const res = await axios.get('/api/v2/list_movies.json', {});
-      
+
       setDetail(res.data.detail.movies);
     }
-    
-    openEvent = true;
-    console.log(openEvent);
+
+    setOpenEvent(true);
   }
-  
+
+  const closeModal = (e) => {
+    setOpenEvent(false);
+  }
+
   return (
     <div className='app'>
       <Header />
       {/* props는 부모가 자식한테로만 ㄱㄴ */}
       <Search />
       {/* props로 가져오려면 각각을 선언 */}
-      <Main data={ data } clickEvent={ clickEvent } />
+      <Main data={data} clickEvent={clickEvent} />
       {/* 상태 바뀔때 클래스 추가 문법 */}
-      <Modal detail={ detail } className={openEvent ? '' : 'show'}/>
+      <Modal detail={detail} openEvent={openEvent} closeModal={closeModal}>
+      </Modal>
     </div>
   );
 }
