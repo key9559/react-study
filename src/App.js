@@ -42,7 +42,7 @@ const App = () => {
         limit: 5,
         sort_by: 'year',
         order_by: 'desc',
-        query_term: 'mother'
+        query_term: 'king'
       }
     });
 
@@ -55,15 +55,16 @@ const App = () => {
     const { target } = e;
     const parent = target.tagName.toLowerCase() === 'li' ? target : target.closest('li');
 
-    console.log(parent.dataset.id);
+    const movieId = parent.dataset.id;
+    console.log(movieId);
 
     const getDetailList = async () => {
       const res = await axios.get('/api/v2/list_movies.json', {});
-      console.log(res);
 
       setDetail(res.data.data.movies);
     }
 
+    getDetailList();
     setOpenEvent(true);
   }
 
