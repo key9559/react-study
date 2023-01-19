@@ -31,7 +31,7 @@ const App = () => {
   // 상태중 data가 바뀌면 이거 쓸게
   // 상태는 병렬로도 가능하고 분리해서 여러 useEffect를 적어도 됨
   useEffect(() => {
-    console.log(data);
+    // console.log(data);
   }, [data]);
 
   const getList = async () => {
@@ -50,7 +50,6 @@ const App = () => {
 
   }
 
-  console.log(openEvent);
   // props로 가져와야함
   const clickEvent = (e) => {
     const { target } = e;
@@ -60,8 +59,9 @@ const App = () => {
 
     const getDetailList = async () => {
       const res = await axios.get('/api/v2/list_movies.json', {});
+      console.log(res);
 
-      setDetail(res.data.detail.movies);
+      setDetail(res.data.data.movies);
     }
 
     setOpenEvent(true);
@@ -79,8 +79,7 @@ const App = () => {
       {/* props로 가져오려면 각각을 선언 */}
       <Main data={data} clickEvent={clickEvent} />
       {/* 상태 바뀔때 클래스 추가 문법 */}
-      <Modal detail={detail} openEvent={openEvent} closeModal={closeModal}>
-      </Modal>
+      <Modal detail={detail} openEvent={openEvent} closeModal={closeModal} />
     </div>
   );
 }

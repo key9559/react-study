@@ -12,9 +12,9 @@ const Main = ({ detail, openEvent, closeModal }) => {
 
   return (
     <div className={openEvent ? 'modal show' : 'modal'}>
-      <div className='modal-bg'></div>
+      <div className='modal-bg' onClick={closeModal}></div>
       <div className='modal-conts'>
-        <button type='button' onClick={closeModal}>닫기</button>
+        <button type='button' className='modal-close' onClick={closeModal}>닫기</button>
         {detail.map((target) => {
           return (
             <div className='modal-wrapper' key={target} data-id={target.id}>
